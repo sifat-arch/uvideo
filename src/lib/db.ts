@@ -16,7 +16,10 @@ export async function dbConnect() {
     return cached.conn;
   }
   if (!cached.promise) {
-    mongoose.connect(MONGODB_URI).then(() => mongoose.connection);
+    const opts = {};
+    cached.promise = mongoose
+      .connect(MONGODB_URI, opts)
+      .then(() => mongoose.connection);
   }
 
   try {
